@@ -1,16 +1,14 @@
 import Web3 from 'web3'
-import { Eth } from 'web3-eth'
-import { provider, EthereumProvider } from 'web3-providers'
+import { Provider } from 'web3/providers'
 
 export default class Signer {
   private web3: Web3;
-  constructor (provider: provider) {
+  constructor (provider: Provider) {
     this.web3 = new Web3(provider)
   }
 
-  public get provider (): EthereumProvider {
-    // XXXX
-    return this.web3.givenProvider as EthereumProvider
+  public get provider () {
+    return this.web3.givenProvider
   }
 
   public async connect (): Promise<string[]> {
@@ -18,5 +16,11 @@ export default class Signer {
     // maybe broken...
     const accounts = await this.provider.enable()
     return accounts
+  }
+
+  public async sign (message: string): Promise<string> {
+    const accounts = await this.connect()
+    const sign = await this.web3.eth.sign(message, accounts[0])
+    return sign
   }
 }
