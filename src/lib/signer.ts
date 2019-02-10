@@ -1,6 +1,10 @@
 import Web3 from 'web3'
 import { Provider, JsonRPCResponse } from 'web3/providers'
 
+export type Account = string;
+export type Hash = string;
+export type Signature = string;
+
 export default class Signer {
   private web3: Web3;
   constructor (provider: Provider) {
@@ -31,23 +35,18 @@ export default class Signer {
     })
   }
 
-  public async poyo (message: string): Promise<void> {
-    const accounts = await this.provider.enable()
-    console.log(await this.send('eth_sign', [accounts[0], message]))
-  }
-
   public get provider () {
     return this.web3.givenProvider
   }
 
-  public async connect (): Promise<string[]> {
+  public async connect (): Promise<Account[]> {
     // TODO: use provider.send('eth_requestAccounts') or eth.requestAccounts()
     // maybe broken...
     const accounts = await this.provider.enable()
     return accounts
   }
 
-  public async sign (message: string): Promise<string> {
+  public async sign (message: Hash): Promise<Signature> {
     const accounts = await this.connect()
     const sign = await this.web3.eth.sign(message, accounts[0])
     return sign
@@ -59,7 +58,7 @@ export default class Signer {
     return result.result
   }
 
-  public async personalECRecover (message: string, signature: string): Promise<string> {
+  public async personalECRecover (message: string, signature: Signature): Promise<Account> {
     const result = await this.send('personal_ecRecover', [message, signature])
     return result.result
   }
