@@ -58,4 +58,9 @@ export default class Signer {
     const result = await this.send('personal_sign', [message, accounts[0]])
     return result.result
   }
+
+  public async personalECRecover (message: string, signature: string): Promise<string> {
+    const result = await this.send('personal_ecRecover', [message, signature])
+    return result.result
+  }
 }
