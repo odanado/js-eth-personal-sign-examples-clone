@@ -5,6 +5,12 @@ export type Account = string;
 export type Hash = string;
 export type Signature = string;
 
+export interface TypedData {
+  type: string;
+  name: string;
+  value: string;
+}
+
 export default class Signer {
   private web3: Web3;
   constructor (provider: Provider) {
@@ -60,6 +66,12 @@ export default class Signer {
 
   public async personalECRecover (message: string, signature: Signature): Promise<Account> {
     const result = await this.send('personal_ecRecover', [message, signature])
+    return result.result
+  }
+
+  public async signTypedData (params: TypedData[]): Promise<Signature> {
+    const accounts = await this.connect()
+    const result = await this.send('eth_signTypedData', [params, accounts[0]])
     return result.result
   }
 }
