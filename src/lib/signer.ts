@@ -17,6 +17,7 @@ export default class Signer {
     this.web3 = new Web3(provider)
   }
 
+  // EIP-1193 compatibility
   private send (method: string, params: any[]): Promise<JsonRPCResponse> {
     return new Promise<JsonRPCResponse>((resolve, reject) => {
       this.provider.send({
