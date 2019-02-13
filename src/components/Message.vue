@@ -1,5 +1,10 @@
 <template>
   <div class="message">
+    <b-field label="Address">
+      <span class="ellipsis-text is-size-7">
+        {{ address }}
+      </span>
+    </b-field>
     <b-field label="Message">
       <b-input
         :value="message"
@@ -7,8 +12,13 @@
       />
     </b-field>
     <b-field label="MessageHash">
-      <span class="message-hash is-size-7">
+      <span class="ellipsis-text is-size-7">
         {{ messageHash }}
+      </span>
+    </b-field>
+    <b-field label="signature">
+      <span class="ellipsis-text is-size-7">
+        {{ signature }}
       </span>
     </b-field>
   </div>
@@ -20,8 +30,10 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
 @Component({
 })
 export default class Message extends Vue {
+  @Prop(String) address!: string;
   @Prop(String) message!: string;
   @Prop(String) messageHash!: string;
+  @Prop(String) signature!: string;
   @Emit('update:message')
   updateMessage (event: any) {
     console.log(event)
@@ -34,7 +46,7 @@ export default class Message extends Vue {
   padding: 1rem;
 }
 
-.message-hash {
+.ellipsis-text {
   width: 100%;
   display: inline-block;
   overflow: hidden;

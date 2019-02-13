@@ -8,6 +8,7 @@
         class="button is-dark"
         type="submit"
         :value="buttonText"
+        @click="$emit('click')"
       >
     </div>
   </div>

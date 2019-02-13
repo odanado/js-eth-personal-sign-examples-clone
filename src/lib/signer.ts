@@ -79,4 +79,9 @@ export default class Signer {
   public hash (message: string): Hash {
     return this.web3.utils.sha3(message)
   }
+
+  public async address (): Promise<Account> {
+    const accounts = await this.web3.eth.getAccounts()
+    return accounts[0]
+  }
 }
