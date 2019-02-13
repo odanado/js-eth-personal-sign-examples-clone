@@ -54,14 +54,14 @@ export default class Signer {
   }
 
   public async sign (message: Hash): Promise<Signature> {
-    const accounts = await this.connect()
-    const sign = await this.web3.eth.sign(message, accounts[0])
+    const account = await this.address()
+    const sign = await this.web3.eth.sign(message, account)
     return sign
   }
 
   public async personalSign (message: string): Promise<string> {
-    const accounts = await this.connect()
-    const result = await this.send('personal_sign', [message, accounts[0]])
+    const account = await this.address()
+    const result = await this.send('personal_sign', [message, account])
     return result.result
   }
 
@@ -71,8 +71,8 @@ export default class Signer {
   }
 
   public async signTypedData (params: TypedData[]): Promise<Signature> {
-    const accounts = await this.connect()
-    const result = await this.send('eth_signTypedData', [params, accounts[0]])
+    const account = await this.address()
+    const result = await this.send('eth_signTypedData', [params, account])
     return result.result
   }
 
