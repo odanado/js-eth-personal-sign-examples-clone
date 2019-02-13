@@ -2,6 +2,7 @@
   <div id="app">
     <Hero />
     <Message
+      class="is-white"
       :address="address"
       :message.sync="message"
       :message-hash.sync="messageHash"
@@ -15,14 +16,6 @@
         @click="op.function"
       />
     </div>
-    <button @click="onClick">
-      click
-    </button>
-    <input
-      class="button"
-      type="submit"
-      value="poyo"
-    >
   </div>
 </template>
 
@@ -68,6 +61,7 @@ export default class App extends Vue {
   async connect () {
     const accounts = await this.$signer.connect()
     this.address = accounts[0]
+    this.$toast.open(`connect: ${this.address}`)
   }
   async ethSign () {
     this.signature = await this.$signer.sign(this.messageHash)
@@ -78,7 +72,7 @@ export default class App extends Vue {
   async personalECRecover () {
     if (this.signature !== '') {
       const address = await this.$signer.personalECRecover(this.message, this.signature)
-      console.log(address)
+      this.$toast.open(`recover: ${address}`)
     }
   }
   async singTypedData () {
@@ -94,25 +88,6 @@ export default class App extends Vue {
         value: '1337'
       }
     ])
-  }
-  async onClick () {
-    console.log('poyo1')
-    console.log(await this.$signer.connect())
-
-    await this.$signer.signTypedData([
-      {
-        type: 'string',
-        name: 'Message',
-        value: 'Hi, Alice!'
-      },
-      {
-        type: 'uint32',
-        name: 'A number',
-        value: '1337'
-      }
-    ])
-
-    console.log('poyo2')
   }
 }
 </script>

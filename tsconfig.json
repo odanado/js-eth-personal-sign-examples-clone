@@ -15,7 +15,8 @@
       "webpack-env"
     ],
     "typeRoots": [
-      "src/types"
+      "src/types",
+      "node_modules/buefy/types"
     ],
     "paths": {
       "@/*": [
