@@ -43,7 +43,7 @@ export default class Signer {
   }
 
   public get provider () {
-    return this.web3.givenProvider
+    return this.web3.currentProvider
   }
 
   public async connect (): Promise<Account[]> {
