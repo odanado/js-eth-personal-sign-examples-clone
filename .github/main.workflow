@@ -38,5 +38,7 @@ action "Deploy to GitHub Pages" {
     BUILD_DIR = "dist/"
   }
   needs = ["Only master branch"]
-  secrets = ["GITHUB_TOKEN"]
+  secrets = [
+    "GH_PAT",
+  ]
 }
