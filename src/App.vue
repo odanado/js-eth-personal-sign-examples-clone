@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <Hero />
+    <Message
+      :message.sync="message"
+      :message-hash.sync="messageHash"
+    />
     <div class="operations">
       <Operation
         v-for="op in operations"
@@ -23,14 +27,25 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Hero from './components/Hero.vue'
 import Operation from './components/Operation.vue'
+import Message from './components/Message.vue'
 
 @Component({
   components: {
     Hero,
-    Operation
+    Operation,
+    Message
   }
 })
 export default class App extends Vue {
+  private message!: string;
+  data () {
+    return {
+      message: 'poyo'
+    }
+  }
+  get messageHash () {
+    return this.$signer.hash(this.message)
+  }
   get operations () {
     return [
       { name: 'Connect' },

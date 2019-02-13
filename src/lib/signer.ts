@@ -75,4 +75,8 @@ export default class Signer {
     const result = await this.send('eth_signTypedData', [params, accounts[0]])
     return result.result
   }
+
+  public hash (message: string): Hash {
+    return this.web3.utils.sha3(message)
+  }
 }
