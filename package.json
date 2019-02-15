@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "buefy": "^0.7.2",
@@ -15,15 +16,19 @@
     "web3": "1.0.0-beta.37"
   },
   "devDependencies": {
+    "@types/jest": "^23.1.4",
     "@types/web3": "^1.0.18",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-plugin-typescript": "^3.4.0",
+    "@vue/cli-plugin-unit-jest": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
+    "@vue/test-utils": "^1.0.0-beta.20",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "ts-jest": "^23.0.0",
     "typescript": "~3.2.2",
     "vue-template-compiler": "^2.5.21"
   }
