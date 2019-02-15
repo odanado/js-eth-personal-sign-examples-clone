@@ -20,6 +20,13 @@ action "lint" {
   args = "yarn lint"
 }
 
+
+action "test" {
+  uses = "docker://node:10"
+  needs = ["install"]
+  args = "yarn test:unit"
+}
+
 action "build" {
   uses = "docker://node:10"
   needs = ["install"]
@@ -28,7 +35,7 @@ action "build" {
 
 action "Only master branch" {
   uses = "actions/bin/filter@46ffca7632504e61db2d4cb16be1e80f333cb859"
-  needs = ["lint", "build"]
+  needs = ["lint", "test", "build"]
   args = "branch master"
 }
 
