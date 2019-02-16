@@ -16,6 +16,12 @@
         @click="op.function"
       />
     </div>
+    <a
+      href="https://github.com/odanado/js-eth-personal-sign-examples-clone"
+      target="_blank"
+    >
+      View the source code on Github
+    </a>
   </div>
 </template>
 
