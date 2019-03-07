@@ -1,27 +1,29 @@
 <template>
   <div id="app">
     <Hero />
-    <Message
-      class="is-white"
-      :address="address"
-      :message.sync="message"
-      :message-hash.sync="messageHash"
-      :signature="signature"
-    />
-    <div class="operations">
-      <Operation
-        v-for="op in operations"
-        :key="op.name"
-        :name="op.name"
-        @click="op.function"
+    <div class="container">
+      <Message
+        class="is-white"
+        :address="address"
+        :message.sync="message"
+        :message-hash.sync="messageHash"
+        :signature="signature"
       />
+      <div class="operations">
+        <Operation
+          v-for="op in operations"
+          :key="op.name"
+          :name="op.name"
+          @click="op.function"
+        />
+      </div>
+      <a
+        href="https://github.com/odanado/js-eth-personal-sign-examples-clone"
+        target="_blank"
+      >
+        View the source code on Github
+      </a>
     </div>
-    <a
-      href="https://github.com/odanado/js-eth-personal-sign-examples-clone"
-      target="_blank"
-    >
-      View the source code on Github
-    </a>
   </div>
 </template>
 
