@@ -1,4 +1,5 @@
 # js-eth-personal-sign-examples-clone
+Simple signature examples for use with MetaMask. This repository reimplemented https://github.com/danfinlay/js-eth-personal-sign-examples using TypeScript.
 
 ## Project setup
 ```
@@ -15,15 +16,7 @@ yarn run serve
 yarn run build
 ```
 
-### Run your tests
-```
-yarn run test
-```
-
 ### Lints and fixes files
 ```
 yarn run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
