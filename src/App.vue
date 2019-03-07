@@ -61,7 +61,8 @@ export default class App extends Vue {
       { name: 'Eth_Sign', function: this.ethSign },
       { name: 'personal_sign', function: this.personalSign },
       { name: 'personal_ecRecover', function: this.personalECRecover },
-      { name: 'Sign Typed Data', function: this.singTypedData }
+      { name: 'Sign Typed Data', function: this.singTypedData },
+      { name: 'Sign Typed Data V3', function: this.singTypedDataV3 }
     ]
   }
   async connect () {
@@ -90,10 +91,19 @@ export default class App extends Vue {
       },
       {
         type: 'uint32',
-        name: 'A number',
+        name: 'Amount',
         value: '1337'
       }
     ])
+  }
+  async singTypedDataV3 () {
+    this.signature = await this.$signer.signTypedDataV3(
+      '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+      {
+        message: this.message,
+        amount: 1337
+      }
+    )
   }
 }
 </script>
