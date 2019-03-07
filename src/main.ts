@@ -5,11 +5,22 @@ import 'buefy/dist/buefy.css'
 
 import Signer from '@/lib/signer'
 
+function getProvider (window: any) {
+  if (window.ethereum) {
+    return window.ethereum
+  }
+  if (window.web3) {
+    return window.web3.currentProvider
+  }
+
+  console.error('Please use dapp browser')
+}
+
 Vue.use(Buefy)
 
 Vue.use({
   install (Vue) {
-    const signer = new Signer((window as any).web3.currentProvider)
+    const signer = new Signer(getProvider(window))
     Object.defineProperty(Vue.prototype, '$signer', {
       get () { return signer }
     })
