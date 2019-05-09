@@ -1,3 +1,4 @@
+/*
 import { Provider } from 'web3/providers'
 
 declare module 'web3/providers' {
@@ -7,3 +8,4 @@ declare module 'web3/providers' {
     enable?: () => Promise<string[]>;
   }
 }
+*/
