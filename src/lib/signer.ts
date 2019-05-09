@@ -1,44 +1,14 @@
 import Web3 from 'web3'
 import { Provider, JsonRPCResponse } from 'web3/providers'
-import { TypedData as TypedDataV3 } from '@uniqys/tx-proxy-lib'
 
-export type Account = string;
-export type Hash = string;
-export type Signature = string;
-export type Address = string;
+import { TypedMyData } from './typed-my-data'
+import { Account, Address, Hash, Signature } from './types'
+export { Account, Address, Hash, Signature }
 
 export interface TypedData {
   type: string;
   name: string;
   value: string;
-}
-
-export namespace TypedMyData {
-
-  export interface MyData {
-    message: string,
-    amount: number
-  }
-
-  export const types: TypedDataV3.Types = {
-    EIP712Domain: [
-      { name: 'verifyingContract', type: 'address' }
-    ],
-    MyData: [
-      { name: 'message', type: 'string' },
-      { name: 'amount', type: 'uint32' }
-    ]
-  }
-
-  /* eslint no-inner-declarations: 0 */
-  export function make (verifyingContract: Address, data: MyData): TypedDataV3<MyData> {
-    return {
-      types: types,
-      primaryType: 'MyData',
-      domain: { verifyingContract },
-      message: data
-    }
-  }
 }
 
 export default class Signer {
