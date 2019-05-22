@@ -1,9 +1,9 @@
+/*
 import Web3 from 'web3'
 import { Provider, JsonRPCResponse } from 'web3/providers'
 
 import { TypedMyData } from './typed-my-data'
 import { Account, Address, Hash, Signature } from './types'
-export { Account, Address, Hash, Signature }
 
 export interface TypedData {
   type: string;
@@ -96,3 +96,4 @@ export default class Signer {
     return accounts[0]
   }
 }
+*/

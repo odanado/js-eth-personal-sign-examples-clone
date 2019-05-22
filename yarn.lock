@@ -9344,7 +9344,7 @@ web3-core-helpers@1.0.0-beta.36:
     web3-eth-iban "1.0.0-beta.36"
     web3-utils "1.0.0-beta.36"
 
-web3-core-helpers@1.0.0-beta.55:
+web3-core-helpers@1.0.0-beta.55, web3-core-helpers@^1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-core-helpers/-/web3-core-helpers-1.0.0-beta.55.tgz#832b8499889f9f514b1d174f00172fd3683d63de"
   integrity sha512-suj9Xy/lIqajaYLJTEjr2rlFgu6hGYwChHmf8+qNrC2luZA6kirTamtB9VThWMxbywx7p0bqQFjW6zXogAgWhg==
@@ -9365,7 +9365,7 @@ web3-core-method@1.0.0-beta.36:
     web3-core-subscriptions "1.0.0-beta.36"
     web3-utils "1.0.0-beta.36"
 
-web3-core-method@1.0.0-beta.55:
+web3-core-method@1.0.0-beta.55, web3-core-method@^1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-core-method/-/web3-core-method-1.0.0-beta.55.tgz#0af994295ac2dd64ccd53305b7df8da76e11da49"
   integrity sha512-w1cW/s2ji9qGELHk2uMJCn1ooay0JJLVoPD1nvmsW6OTRWcVjxa62nJrFQhe6P5lEb83Xk9oHgmCxZoVUHibOw==
@@ -9422,7 +9422,7 @@ web3-core@1.0.0-beta.36:
     web3-core-requestmanager "1.0.0-beta.36"
     web3-utils "1.0.0-beta.36"
 
-web3-core@1.0.0-beta.55:
+web3-core@1.0.0-beta.55, web3-core@^1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-core/-/web3-core-1.0.0-beta.55.tgz#26b9abbf1bc1837c9cc90f06ecbc4ed714f89b53"
   integrity sha512-AMMp7TLEtE7u8IJAu/THrRhBTZyZzeo7Y6GiWYNwb5+KStC9hIGLr9cI1KX9R6ZioTOLRHrqT7awDhnJ1ku2mg==
@@ -9696,7 +9696,7 @@ web3-providers-ws@1.0.0-beta.36:
     web3-core-helpers "1.0.0-beta.36"
     websocket "git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible"
 
-web3-providers@1.0.0-beta.55:
+web3-providers@1.0.0-beta.55, web3-providers@^1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-providers/-/web3-providers-1.0.0-beta.55.tgz#639503517741b69baaa82f1f940630df6a25992b"
   integrity sha512-MNifc7W+iF6rykpbDR1MuX152jshWdZXHAU9Dk0Ja2/23elhIs4nCWs7wOX9FHrKgdrQbscPoq0uy+0aGzyWVQ==
@@ -9748,7 +9748,7 @@ web3-utils@1.0.0-beta.36:
     underscore "1.8.3"
     utf8 "2.1.1"
 
-web3-utils@1.0.0-beta.55:
+web3-utils@1.0.0-beta.55, web3-utils@^1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.0.0-beta.55.tgz#beb40926b7c04208b752d36a9bc959d27a04b308"
   integrity sha512-ASWqUi8gtWK02Tp8ZtcoAbHenMpQXNvHrakgzvqTNNZn26wgpv+Q4mdPi0KOR6ZgHFL8R/9b5BBoUTglS1WPpg==
