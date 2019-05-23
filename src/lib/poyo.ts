@@ -25,7 +25,6 @@ export class Signer extends AbstractWeb3Module {
   public async sign (message: Hash): Promise<Signature> {
     const method = new AbstractMethod('eth_sign', 2, this.utils, this.formatters, this)
     const address = await this.address()
-    console.log(address, message)
     method.setArguments([address, message])
     const sign = await method.execute()
     return sign
@@ -44,29 +43,45 @@ export class Signer extends AbstractWeb3Module {
   }
 
   public hash (message: string): Hash {
-    console.log(message)
     return Utils.sha3(message)
   }
 
   public async connect (): Promise<Address[]> {
-    return []
+    const method = new AbstractMethod('eth_requestAccounts', 0, this.utils, this.formatters, this)
+    const accounts = await method.execute()
+    return accounts
   }
-  public async personalSign (message: string): Promise<string> {
-    console.log(message)
-    return ''
+  public async personalSign (message: string): Promise<Signature> {
+    const method = new AbstractMethod('personal_sign', 2, this.utils, this.formatters, this)
+    const address = await this.address()
+    method.setArguments([address, message])
+    const sign = await method.execute()
+    return sign
   }
   public async personalECRecover (message: string, signature: Signature): Promise<Address> {
     console.log(message, signature)
-    return ''
+    const method = new AbstractMethod('personal_ecRecover', 2, this.utils, this.formatters, this)
+    method.setArguments([message, signature])
+    const address = await method.execute()
+    return address
   }
 
   public async signTypedData (params: TypedData[]): Promise<Signature> {
     console.log(params)
-    return ''
+    const account = await this.address()
+    const method = new AbstractMethod('eth_signTypedData', 2, this.utils, this.formatters, this)
+    method.setArguments([params, account])
+    const sign = await method.execute()
+    return sign
   }
 
   public async signTypedDataV3 (verifyingContract: Address, data: TypedMyData.MyData): Promise<Signature> {
     console.log(verifyingContract, data)
-    return ''
+    const account = await this.address()
+    const params = TypedMyData.make(verifyingContract, data)
+    const method = new AbstractMethod('eth_signTypedData_v3', 2, this.utils, this.formatters, this)
+    method.setArguments([account, JSON.stringify(params)])
+    const sign = await method.execute()
+    return sign
   }
 }
