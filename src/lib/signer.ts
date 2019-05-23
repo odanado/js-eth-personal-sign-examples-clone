@@ -1,9 +1,11 @@
-/*
-import Web3 from 'web3'
-import { Provider, JsonRPCResponse } from 'web3/providers'
+import { AbstractWeb3Module } from 'web3-core'
+import { provider } from 'web3-providers'
+import { AbstractMethod } from 'web3-core-method'
+import * as Utils from 'web3-utils'
+import { formatters } from 'web3-core-helpers'
 
+import { Address, Hash, Signature } from './types'
 import { TypedMyData } from './typed-my-data'
-import { Account, Address, Hash, Signature } from './types'
 
 export interface TypedData {
   type: string;
@@ -11,89 +13,75 @@ export interface TypedData {
   value: string;
 }
 
-export default class Signer {
-  private web3: Web3;
-  constructor (provider: Provider) {
-    this.web3 = new Web3(provider)
-  }
-
-  // EIP-1193 compatibility
-  private send (method: string, params: any[]): Promise<JsonRPCResponse> {
-    return new Promise<JsonRPCResponse>((resolve, reject) => {
-      this.provider.send({
-        method,
-        params,
-        id: 0,
-        jsonrpc: '2.0'
-      }, (error: (null | Error), val?: JsonRPCResponse) => {
-        if (error) {
-          reject(error)
-          return
-        }
-        if (!val) {
-          reject(new Error())
-          return
-        }
-        if (val.error) {
-          reject(val.error)
-        }
-        resolve(val)
-      })
-    })
-  }
-
-  public get provider () {
-    return this.web3.currentProvider
-  }
-
-  public async connect (): Promise<Account[]> {
-    // TODO: use provider.send('eth_requestAccounts') or eth.requestAccounts()
-    // maybe broken...
-    if (!this.provider.enable) {
-      return []
-    }
-    const accounts = await this.provider.enable()
-    return accounts
+export class Signer extends AbstractWeb3Module {
+  private utils: any;
+  private formatters: formatters;
+  constructor (provider: provider) {
+    super(provider, {})
+    this.utils = Utils
+    this.formatters = formatters
   }
 
   public async sign (message: Hash): Promise<Signature> {
-    const account = await this.address()
-    const sign = await this.web3.eth.sign(message, account)
+    const method = new AbstractMethod('eth_sign', 2, this.utils, this.formatters, this)
+    const address = await this.address()
+    method.setArguments([address, message])
+    const sign = await method.execute()
     return sign
   }
 
-  public async personalSign (message: string): Promise<string> {
-    const account = await this.address()
-    const result = await this.send('personal_sign', [message, account])
-    return result.result
+  public async getAddresses (): Promise<Address[]> {
+    const method = new AbstractMethod('eth_accounts', 0, this.utils, this.formatters, this)
+    const addresses = await method.execute()
+
+    return addresses
   }
 
-  public async personalECRecover (message: string, signature: Signature): Promise<Account> {
-    const result = await this.send('personal_ecRecover', [message, signature])
-    return result.result
-  }
-
-  public async signTypedData (params: TypedData[]): Promise<Signature> {
-    const account = await this.address()
-    const result = await this.send('eth_signTypedData', [params, account])
-    return result.result
-  }
-
-  public async signTypedDataV3 (verifyingContract: Address, data: TypedMyData.MyData): Promise<Signature> {
-    const account = await this.address()
-    const params = TypedMyData.make(verifyingContract, data)
-    console.log(params)
-    const result = await this.send('eth_signTypedData_v3', [account, JSON.stringify(params)])
-    return result.result
+  public async address (): Promise<Address> {
+    const addresses = await this.getAddresses()
+    return addresses[0]
   }
 
   public hash (message: string): Hash {
-    return this.web3.utils.sha3(message)
+    return Utils.sha3(message)
   }
 
-  public async address (): Promise<Account> {
-    const accounts = await this.web3.eth.getAccounts()
-    return accounts[0]
+  public async connect (): Promise<Address[]> {
+    const method = new AbstractMethod('eth_requestAccounts', 0, this.utils, this.formatters, this)
+    const accounts = await method.execute()
+    return accounts
+  }
+  public async personalSign (message: string): Promise<Signature> {
+    const method = new AbstractMethod('personal_sign', 2, this.utils, this.formatters, this)
+    const address = await this.address()
+    method.setArguments([address, message])
+    const sign = await method.execute()
+    return sign
+  }
+  public async personalECRecover (message: string, signature: Signature): Promise<Address> {
+    console.log(message, signature)
+    const method = new AbstractMethod('personal_ecRecover', 2, this.utils, this.formatters, this)
+    method.setArguments([message, signature])
+    const address = await method.execute()
+    return address
+  }
+
+  public async signTypedData (params: TypedData[]): Promise<Signature> {
+    console.log(params)
+    const account = await this.address()
+    const method = new AbstractMethod('eth_signTypedData', 2, this.utils, this.formatters, this)
+    method.setArguments([params, account])
+    const sign = await method.execute()
+    return sign
+  }
+
+  public async signTypedDataV3 (verifyingContract: Address, data: TypedMyData.MyData): Promise<Signature> {
+    console.log(verifyingContract, data)
+    const account = await this.address()
+    const params = TypedMyData.make(verifyingContract, data)
+    const method = new AbstractMethod('eth_signTypedData_v3', 2, this.utils, this.formatters, this)
+    method.setArguments([account, JSON.stringify(params)])
+    const sign = await method.execute()
+    return sign
   }
 }
-*/
