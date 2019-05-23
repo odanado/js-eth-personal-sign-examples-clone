@@ -1,6 +1,5 @@
 import Vue from 'vue'
-// import Signer from '@/lib/signer'
-import { Signer } from '@/lib/poyo'
+import Signer from '@/lib/signer'
 
 declare module 'vue/types/vue' {
   interface Vue {
