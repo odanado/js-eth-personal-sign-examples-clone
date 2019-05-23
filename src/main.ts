@@ -3,7 +3,7 @@ import App from './App.vue'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
-import Signer from '@/lib/signer'
+import { Signer } from '@/lib/signer'
 
 function getProvider (window: any) {
   if (window.ethereum) {
