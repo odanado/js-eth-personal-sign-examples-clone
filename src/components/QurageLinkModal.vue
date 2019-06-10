@@ -1,13 +1,14 @@
 <template>
   <b-modal
-    :active.sync="isActive"
+    :active="isActive"
+    @close="close"
   >
     aaa
   </b-modal>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator'
 
 @Component({
 })
@@ -19,6 +20,16 @@ export default class QurageLinkModal extends Vue {
   updateActive () {
     console.log('update:active')
     return this.isActive
+  }
+
+  @Watch('active')
+  changeActive (val: boolean) {
+    this.isActive = val
+  }
+
+  close () {
+    this.isActive = false
+    this.updateActive()
   }
 }
 </script>
