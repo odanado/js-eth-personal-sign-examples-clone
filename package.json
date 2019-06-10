@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@uniqys/qurage-link-lib": "^1.0.1",
     "@uniqys/tx-proxy-lib": "^0.0.3",
     "buefy": "^0.7.2",
     "vue": "^2.5.22",
