@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <qurage-link-modal :active.sync="qurageLinkModalActive" />
+    <button @click="qurageLinkModalActive=true">
+      Click Me
+    </button>
     <Hero />
     <div class="container">
       <Message
@@ -32,18 +36,21 @@ import { Component, Vue } from 'vue-property-decorator'
 import Hero from './components/Hero.vue'
 import Operation from './components/Operation.vue'
 import Message from './components/Message.vue'
+import QurageLinkModal from './components/QurageLinkModal.vue'
 
 @Component({
   components: {
     Hero,
     Operation,
-    Message
+    Message,
+    QurageLinkModal
   }
 })
 export default class App extends Vue {
   private message!: string;
   private address!: string;
   private signature!: string;
+  private qurageLinkModalActive: boolean = false;
   async created () {
     this.address = await this.$signer.address()
   }
