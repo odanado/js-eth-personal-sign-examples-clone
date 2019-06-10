@@ -9,6 +9,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@sentry/browser": "^5.4.0",
+    "@sentry/integrations": "^5.4.1",
     "@uniqys/qurage-link-lib": "^1.0.1",
     "@uniqys/tx-proxy-lib": "^0.0.3",
     "buefy": "^0.7.2",

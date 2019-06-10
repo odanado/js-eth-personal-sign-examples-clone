@@ -5,6 +5,14 @@ import 'buefy/dist/buefy.css'
 
 import { Signer } from '@/lib/signer'
 
+import * as Sentry from '@sentry/browser'
+import * as Integrations from '@sentry/integrations'
+
+Sentry.init({
+  dsn: 'https://d5e170bee28741ee9557160240e9e377@sentry.io/1478716',
+  integrations: [new Integrations.Vue({ Vue, attachProps: true })]
+})
+
 function getProvider (window: any) {
   if (window.ethereum) {
     return window.ethereum
