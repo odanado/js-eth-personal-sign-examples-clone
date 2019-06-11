@@ -2,19 +2,25 @@
   <b-modal
     :active="isActive"
     @close="close"
-    :width="640"
+    :width="320"
   >
     >
     <section class="card">
       <header class="card-header">
-        <p class="card-header-title">
+        <p
+          class="card-header-title"
+        >
           コードを読み込んでください
         </p>
       </header>
-      <div class="card-image">
-        <canvas
-          ref="canvas"
-        />
+      <div class="card-content">
+        <div class="card-image">
+          <canvas
+            ref="canvas"
+            height="244"
+            width="244"
+          />
+        </div>
       </div>
     </section>
   </b-modal>
@@ -41,12 +47,16 @@ export default class QurageLinkModal extends Vue {
     console.log('changeActive', val)
     this.isActive = val
     if (!val) return
+
+    // XX: unlinkしないとsentryがエラー吐く
+    // window.web3をundefinedにするのやめてくれ；；
     await this.qurageLink.unlink()
 
     await this.$nextTick()
     const canvas = this.$refs.canvas as HTMLCanvasElement
-    const linkResult = await this.qurageLink.linkWithQRCode(canvas)
+    const linkResult = await this.qurageLink.linkWithQRCode(canvas, true)
     this.$emit('update:active', false)
+    this.$emit('update:web3')
   }
 
   close () {
@@ -55,3 +65,10 @@ export default class QurageLinkModal extends Vue {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.card-image {
+  display: flex;
+  justify-content: center;
+}
+</style>

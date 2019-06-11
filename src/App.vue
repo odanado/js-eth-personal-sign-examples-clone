@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <qurage-link-modal :active.sync="qurageLinkModalActive" />
-    <button @click="qurageLinkModalActive=true">
-      Click Me
-    </button>
+    <qurage-link @update:web3="updateWeb3" />
     <Hero />
     <div class="container">
       <Message
@@ -36,22 +33,24 @@ import { Component, Vue } from 'vue-property-decorator'
 import Hero from './components/Hero.vue'
 import Operation from './components/Operation.vue'
 import Message from './components/Message.vue'
-import QurageLinkModal from './components/QurageLinkModal.vue'
+import QurageLink from './components/QurageLink.vue'
 
 @Component({
   components: {
     Hero,
     Operation,
     Message,
-    QurageLinkModal
+    QurageLink
   }
 })
 export default class App extends Vue {
   private message!: string;
   private address!: string;
   private signature!: string;
-  private qurageLinkModalActive: boolean = false;
   async created () {
+    this.address = await this.$signer.address()
+  }
+  async updateWeb3 () {
     this.address = await this.$signer.address()
   }
   data () {
