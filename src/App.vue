@@ -2,6 +2,9 @@
   <div id="app">
     <Hero />
     <div class="container">
+      <div class="columns is-centered">
+        <qurage-link @update:web3="updateWeb3" />
+      </div>
       <Message
         class="is-white"
         :address="address"
@@ -32,12 +35,14 @@ import { Component, Vue } from 'vue-property-decorator'
 import Hero from './components/Hero.vue'
 import Operation from './components/Operation.vue'
 import Message from './components/Message.vue'
+import QurageLink from './components/QurageLink.vue'
 
 @Component({
   components: {
     Hero,
     Operation,
-    Message
+    Message,
+    QurageLink
   }
 })
 export default class App extends Vue {
@@ -45,6 +50,9 @@ export default class App extends Vue {
   private address!: string;
   private signature!: string;
   async created () {
+    this.address = await this.$signer.address()
+  }
+  async updateWeb3 () {
     this.address = await this.$signer.address()
   }
   data () {
