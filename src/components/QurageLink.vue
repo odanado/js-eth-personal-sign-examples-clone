@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="qurage-link column is-half">
     <qurage-link-modal
       :active.sync="modalActive"
       @update:web3="updateWeb3"
@@ -36,3 +36,11 @@ export default class QurageLink extends Vue {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.qurage-link {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+</style>

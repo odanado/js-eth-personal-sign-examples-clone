@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <qurage-link @update:web3="updateWeb3" />
     <Hero />
     <div class="container">
+      <div class="columns is-centered">
+        <qurage-link @update:web3="updateWeb3" />
+      </div>
       <Message
         class="is-white"
         :address="address"
