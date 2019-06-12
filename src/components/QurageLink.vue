@@ -31,8 +31,6 @@ export default class QurageLink extends Vue {
     // XX: window.ethereum を使うと `Invalid provider injected!`
     // XX: window.web3.currentProvider では eth_signTypedData と eth_signTypedData_v3 が実装されていない
     // XX: window.ethereum では eth_signTypedData_v3 は実装されているが、eth_signTypedDataはされていない (忘れ？)
-    const web3 = (window as any).web3
-    this.$signer.setProvider(web3.currentProvider)
   }
 }
 </script>

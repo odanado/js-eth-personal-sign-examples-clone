@@ -20,6 +20,7 @@ export class Signer extends AbstractWeb3Module {
     super(provider, {})
     this.utils = Utils
     this.formatters = formatters
+    console.log(this.currentProvider)
   }
 
   public async sign (message: Hash): Promise<Signature> {
