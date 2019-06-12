@@ -32,6 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Signer } from '@/lib/signer'
 import Hero from './components/Hero.vue'
 import Operation from './components/Operation.vue'
 import Message from './components/Message.vue'
@@ -46,24 +47,45 @@ import QurageLink from './components/QurageLink.vue'
   }
 })
 export default class App extends Vue {
-  private message!: string;
-  private address!: string;
-  private signature!: string;
+  private message: string = 'poyo';
+  private address: string = '';
+  private signature: string = '';
+  // T | undefinedだとダメなのでT | falseにする ref:https://github.com/vuejs/vue-class-component/pull/35
+  private signer: Signer | false = false;
+  private poyo?: string = 'poyo';
+
   async created () {
-    this.address = await this.$signer.address()
+    this.updateWeb3()
   }
   async updateWeb3 () {
-    this.address = await this.$signer.address()
-  }
-  data () {
-    return {
-      message: 'poyo',
-      address: '',
-      signature: ''
+    const provider = this.getProvider(window)
+    if (provider) {
+      if (this.signer) {
+        this.signer.setProvider(provider)
+      } else {
+        console.info('init Signer')
+        this.signer = new Signer(provider)
+      }
+      this.address = await this.signer.address()
+    } else {
+      this.$toast.open('Please use dapp browser!')
     }
   }
+  getProvider (window: any) {
+    // XX: qurage link待ち
+    if (window.web3) {
+      return window.web3.currentProvider
+    }
+    if (window.ethereum) {
+      return window.ethereum
+    }
+    console.warn('Please use dapp browser')
+  }
   get messageHash () {
-    return this.$signer.hash(this.message)
+    if (this.signer) {
+      return this.signer.hash(this.message)
+    }
+    return ''
   }
   get operations () {
     return [
@@ -76,24 +98,29 @@ export default class App extends Vue {
     ]
   }
   async connect () {
-    const accounts = await this.$signer.connect()
+    if (!this.signer) return ''
+    const accounts = await this.signer.connect()
     this.address = accounts[0]
     this.$toast.open(`connect: ${this.address}`)
   }
   async ethSign () {
-    this.signature = await this.$signer.sign(this.messageHash)
+    if (!this.signer) return
+    this.signature = await this.signer.sign(this.messageHash)
   }
   async personalSign () {
-    this.signature = await this.$signer.personalSign(this.message)
+    if (!this.signer) return
+    this.signature = await this.signer.personalSign(this.message)
   }
   async personalECRecover () {
+    if (!this.signer) return
     if (this.signature !== '') {
-      const address = await this.$signer.personalECRecover(this.message, this.signature)
+      const address = await this.signer.personalECRecover(this.message, this.signature)
       this.$toast.open(`recover: ${address}`)
     }
   }
   async singTypedData () {
-    this.signature = await this.$signer.signTypedData([
+    if (!this.signer) return
+    this.signature = await this.signer.signTypedData([
       {
         type: 'string',
         name: 'Message',
@@ -107,7 +134,8 @@ export default class App extends Vue {
     ])
   }
   async singTypedDataV3 () {
-    this.signature = await this.$signer.signTypedDataV3(
+    if (!this.signer) return
+    this.signature = await this.signer.signTypedDataV3(
       '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
       {
         message: this.message,
