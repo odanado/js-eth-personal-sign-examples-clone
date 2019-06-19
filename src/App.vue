@@ -73,6 +73,9 @@ export default class App extends Vue {
   }
   getProvider (window: any) {
     // XX: qurage link待ち
+    if (window.ethereum.currentProvider) {
+      return window.ethereum.currentProvider
+    }
     if (window.web3) {
       return window.web3.currentProvider
     }

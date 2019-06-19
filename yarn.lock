@@ -465,10 +465,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@uniqys/qurage-link-lib@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@uniqys/qurage-link-lib/-/qurage-link-lib-1.0.1.tgz#e6059a1824345a9ad668941ca68c096b8f0d78eb"
-  integrity sha512-JGpP4RxSPLnAK6epFD1Vk70a8N8xEwLV4yMW3SUySRDE2T36j4bjp+lHvlnNO4LZBhdC3UV9+S9E/WCx8HHbQg==
+"@uniqys/qurage-link-lib@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@uniqys/qurage-link-lib/-/qurage-link-lib-1.1.0.tgz#fa615e7ca563786d439497b0121106bc066c7540"
+  integrity sha512-8mGK7HWDgML+YqIF7WsLuemdGK44+MaOGX/G15jTU1p3EPu7B5B9Nwkz4vrFNJY7gIYIbRpTqFaGxZN4ov7P4w==
   dependencies:
     "@babel/polyfill" "^7.2.5"
     axios "^0.18.0"
